@@ -65,8 +65,6 @@ $("#addbtn").click(async function () {
     fetchTodo();
 });
 
-$("#checkbtn").click()
-
 async function fetchTodo() {
     $('#todo-list').empty();
 
@@ -79,11 +77,32 @@ async function fetchTodo() {
 
         let temp_html = `
         <div class="list">
-            <span>${todoContent}</span>
+            <span id="todo-value">${todoContent}</span>
             <div id="checkbtn" class="checkbtn">
                 <div class="checkicon"></div>
             </div>
         </div>`;
         $('#todo-list').append(temp_html);
     });
+}
+
+async function fetchDone() {
+    let $temp_html = $(temp_html);
+
+    $temp_html.find('#checkbtn').click(async function () {
+        let doneContent = $('#todo-value').val();
+
+        let doc = {
+            'doneContent': doneContent
+        };
+        await addDoc(collection(db, "done-" + prevDate), doc);
+        alert('todo 완료');
+
+        let docs = await getDocs(collection(db, "done-" + prevDate));
+        docs.forEach((doc) => {
+            let row = doc.data();
+
+            $('#done-list').append($temp_html);
+        })
+    })
 }
