@@ -78,7 +78,7 @@ async function fetchTodo() {
         let temp_html = `
         <div class="list">
             <span id="todo-value">${todoContent}</span>
-            <div id="checkbtn" class="checkbtn">
+            <div id="checkbtn" class="checkbtn"">
                 <div class="checkicon"></div>
             </div>
         </div>`;
@@ -87,22 +87,33 @@ async function fetchTodo() {
 }
 
 async function fetchDone() {
-    let $temp_html = $(temp_html);
+    // let $temp_html = $(temp_html);
 
-    $temp_html.find('#checkbtn').click(async function () {
-        let doneContent = $('#todo-value').val();
+    // $temp_html.find('#checkbtn').click(async function () {
+    //     let doneContent = $('#todo-value').val();
 
-        let doc = {
-            'doneContent': doneContent
-        };
-        await addDoc(collection(db, "done-" + prevDate), doc);
-        alert('todo 완료');
+    //     let doc = {
+    //         'doneContent': doneContent
+    //     };
+    //     await addDoc(collection(db, "done-" + prevDate), doc);
+    //     alert('todo 완료');
 
-        let docs = await getDocs(collection(db, "done-" + prevDate));
-        docs.forEach((doc) => {
-            let row = doc.data();
+    //     let docs = await getDocs(collection(db, "done-" + prevDate));
+    //     docs.forEach((doc) => {
+    //         let row = doc.data();
 
-            $('#done-list').append($temp_html);
-        })
-    })
+    //         $('#done-list').append($temp_html);
+    //     })
+    // })
+    alert('데이터베이스가 없습니다.');
 }
+
+$(document).on('click', '.checkbtn', fetchDone);
+
+function clickDeletebtn() {
+    alert('데이터베이스가 없습니다.');
+}
+
+$(document).on('click', '.deletebtn', clickDeletebtn);
+
+
